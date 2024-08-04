@@ -19,12 +19,13 @@ export interface WeatherData{
         temp_max:number;
         pressure:number;
         humidity:number;
-    }
+    },
+    name:string;
     visibility:number;
     wind :{
         speed:number;
         deg:number;
-    }; 
+    };
     clouds:{
         all:number;
     };

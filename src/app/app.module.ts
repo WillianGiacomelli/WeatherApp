@@ -8,6 +8,8 @@ import { WeatherComponent } from './pages/component/weather-component/weather-co
 import { SearchComponent } from './pages/components/search-component/search.component';
 import { WeatherCardComponent } from './features/components/weather-card/weather-card.component';
 import { InformationsComponent } from './pages/components/informations/informations.component';
+import { WeatherBehaviorService } from './pages/component/services/weatherBehavior.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,9 @@ import { InformationsComponent } from './pages/components/informations/informati
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NgxSkeletonLoaderModule
   ],
-  providers: [],
+  providers: [WeatherBehaviorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

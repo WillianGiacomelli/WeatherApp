@@ -8,7 +8,9 @@
     <div class=" col-xs-12 col-md-8">
       <div class="bg-color-1">
         <div class="container py-5 px-5">
-          <app-informations></app-informations>
+          @if(weatherBehaviorService.getCityInfo()){
+            <app-informations></app-informations>
+          }
         </div>
       </div>
     </div>

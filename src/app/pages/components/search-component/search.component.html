@@ -1,6 +1,92 @@
-<form #form="ngForm" (submit)="submitForm()">
-  <div class="form-group d-relative">
-    <input type="text" class="form-control justify-self-center d-relative rounded-5" id="city" [(ngModel)]="city" name="city" placeholder="Enter city">
-    <i class="bi bi-search d-absolute" (click)="submitForm()"></i>
-  </div>
-</form>
+@if(weatherService.getIsLoading() && !!cityWeatherInfo){
+  <form #form="ngForm" (submit)="submitForm()">
+    <div class="form-group d-relative">
+      <input type="text" class="form-control justify-self-center d-relative rounded-5" id="city" [(ngModel)]="city" name="city" placeholder="Enter city">
+      <i class="bi bi-search d-absolute" (click)="submitForm()"></i>
+      @if(cityWeatherInfo){
+        <div>
+          <div>
+            <div class="d-flex justify-content-center mt-5">
+              @switch (cityWeatherInfo.weather[0].id) {
+                @case (800){
+                  <img src="../../../../assets/weather/sun.svg" alt="sun" class="w-25">
+                }
+                @case(800 || 801 || 802 || 803 || 804){
+                  <img src="../../../../assets/weather/clouds.svg" alt="cloudy" class="w-25">
+                }
+                @case (701 || 711 || 721 || 731 || 741 || 751 || 761 || 771) {
+                  <img src="../../../../assets/weather/atmosphere.svg" alt="fog" class="w-25">
+                }
+                @case(781){
+                  <img src="../../../../assets/weather/tornado.svg" alt="tornado" class="w-25">
+                }
+                @case(600 || 601 || 602 || 611 || 612 || 613 || 615 || 616 || 620 || 621 || 622){
+                  <img src="../../../../assets/weather/snow.svg" alt="snow" class="w-25">
+                }
+                @case(500 || 501 || 502 || 503 || 504 || 511 || 520 || 521 || 522 || 531){
+                  <img src="../../../../assets/weather/rain.svg" alt="rain" class="w-25">
+                }
+                @case(300 || 301 || 302 || 310 || 311 || 312 || 313 || 314 || 321){
+                  <img src="../../../../assets/weather/rain.svg" alt="drizzle" class="w-25">
+                }
+                @case(200 || 201 || 202 || 210 || 211 || 212 || 221 || 230 || 231 || 232){
+                  <img src="../../../../assets/weather/thunderstorm.svg" alt="thunderstorm" class="w-25">
+                }
+                @default {
+                  <img src="../../../../assets/weather/atmosphere.svg" alt="fog" class="w-25">
+                }
+              }
+            </div>
+            <div class="text-center pb-3 border-bottom">
+              <h1 class="temp">{{cityWeatherInfo.main.temp.toFixed(0)}}°C</h1>
+              @switch (cityWeatherInfo.weather[0].id) {
+                @case (800){
+                  <h2 class="fs-3 fw-medium desc">Céu limpo</h2>
+                }
+                @case(800 || 801 || 802 || 803 || 804){
+                  <h2 class="fs-3 fw-medium desc">Nuvens</h2>
+                }
+                @case (701 || 711 || 721 || 731 || 741 || 751 || 761 || 771) {
+                  <h2 class="fs-3 fw-medium desc">Neblina</h2>
+                }
+                @case(781){
+                  <h2 class="fs-3 fw-medium desc">Tornado</h2>
+                }
+                @case(600 || 601 || 602 || 611 || 612 || 613 || 615 || 616 || 620 || 621 || 622){
+                  <h2 class="fs-3 fw-medium desc">Neve</h2>
+                }
+                @case(500 || 501 || 502 || 503 || 504 || 511 || 520 || 521 || 522 || 531){
+                  <h2 class="fs-3 fw-medium desc">Chuva</h2>
+                }
+                @case(300 || 301 || 302 || 310 || 311 || 312 || 313 || 314 || 321){
+                  <h2 class="fs-3 fw-medium desc">Chuvisco</h2>
+                }
+                @case(200 || 201 || 202 || 210 || 211 || 212 || 221 || 230 || 231 || 232){
+                  <h2 class="fs-3 fw-medium desc">Tempestade com trovões</h2>
+                }
+                @default {
+                  <h2 class="fs-3 fw-medium desc">Atmosfera</h2>
+                }
+              }
+            </div>
+            <div class="text-center mt-5">
+              <p class="fs-4 fw-normal text-secondary">
+                {{getDayOfTheYear()}}
+              </p>
+              <p class="fs-4 fw-normal text-secondary">
+                {{getDay()}}
+              </p>
+              <h1 class="mt-5">
+                {{cityWeatherInfo.name}}
+              </h1>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </form>
+}@else {
+  <ngx-skeleton-loader [theme]="{background: 'blue', width:'100%', height:'30px', borderRadius:'20px'}"></ngx-skeleton-loader>
+  <ngx-skeleton-loader [theme]="{background: 'blue', width:'100%', height:'250px', borderRadius:'20px', marginTop:'4       0px'}"></ngx-skeleton-loader>
+}
+

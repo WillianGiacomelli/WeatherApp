@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-weather-card',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weather-card.component.css']
 })
 export class WeatherCardComponent implements OnInit {
+  @Input() titleDescription?: string;
+  @Input() value?: any;
+  @Input() weight?: any;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  public getTypeOf(value: any): any{
+    return typeof value;
+  }
 }

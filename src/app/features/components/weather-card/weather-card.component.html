@@ -1,5 +1,17 @@
-<div class="card">
-  <div class="card-body">
-
-  </div>
+<div class="card py-2">
+  @if(titleDescription && value){
+    <div class="card-body">
+      <div class="card-title fs-5">
+        {{titleDescription}}
+      </div>
+      <div class="fs-3 fw-bold">
+        {{getTypeOf(value) == 'number' ? value.toFixed(0) : value}}
+      </div>
+      @if(weight){
+        <div class="fs-6 fw-semibold pt-2">
+          {{weight}}
+        </div>
+      }
+    </div>
+  }
 </div>

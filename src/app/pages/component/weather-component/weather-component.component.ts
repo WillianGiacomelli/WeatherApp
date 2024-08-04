@@ -1,6 +1,7 @@
+import { WeatherBehaviorService } from './../services/weatherBehavior.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WeatherService } from '../../../core/services/weather.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { WeatherData } from '../../../core/models/weatherData';
 
 @Component({
@@ -9,10 +10,14 @@ import { WeatherData } from '../../../core/models/weatherData';
   styleUrl: './weather-component.component.scss',
 })
 export class WeatherComponent implements OnInit, OnDestroy {
-  public city: string = "";
+  public city: string = "Campinas";
   public unsubscribe$: Subject<boolean> = new Subject<boolean>();
   public cityWeather!: WeatherData;
-  constructor(private weatherService: WeatherService) {}
+
+  constructor(
+    private weatherService: WeatherService,
+    public weatherBehaviorService: WeatherBehaviorService
+  ) {}
 
   ngOnDestroy(): void {
     this.unsubscribe$.next(true);
@@ -20,22 +25,38 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.getWeather('Londrina');
+    this.getWeather();
+
+    this.weatherBehaviorService.getCity()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe({
+      next: (city: string) => {
+        this.city = city;
+        this.getWeather();
+      },
+      complete: () => {},
+      error: (error: any) => {
+        console.error(error);
+      },
+    });
   }
 
-
-
-  public getWeather(city: string): void {
-    this.weatherService.getWeather(city)
-    .pipe(takeUntil(this.unsubscribe$))
+  public getWeather(): void {
+    this.weatherService.getWeather(this.city)
+    .pipe(
+      takeUntil(this.unsubscribe$),
+      take(1)
+    )
     .subscribe({
       next: (response: any) => {
         if(response){
-          this.cityWeather = response;
-          console.log(this.cityWeather);
+          this.weatherBehaviorService.setCityInfo(response);
+          this.weatherBehaviorService.setIsLoading(false);
+          console.log("request completed");
         }
       },
-      complete: () => {},
+      complete: () => {
+      },
       error: (error: any) => {
         console.error(error);
       },
