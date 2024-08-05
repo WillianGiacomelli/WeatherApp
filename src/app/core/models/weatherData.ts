@@ -12,7 +12,7 @@ export interface WeatherData{
         }
     ];
     base:string;
-    main:{
+    main?:{
         temp:number;
         feels_like:number;
         temp_min:number;

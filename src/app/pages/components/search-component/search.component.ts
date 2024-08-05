@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, WritableSignal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { WeatherBehaviorService } from '../../component/services/weatherBehavior.service';
 import { Subject, take, takeUntil } from 'rxjs';
 import { WeatherData } from '../../../core/models/weatherData';
@@ -13,7 +13,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   public cityWeatherInfo: WeatherData | undefined;
   public city: string = "";
   public day: Date = new Date();
-  public isLoading: boolean = true;
 
   constructor(protected weatherService: WeatherBehaviorService) { }
 
@@ -23,7 +22,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.isLoading)
     this.weatherService.getCityInfo()
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe({
@@ -38,20 +36,11 @@ export class SearchComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.weatherService.getIsLoading()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe({
-      next: (loading: boolean) => {
-        if(loading){
-          this.isLoading = loading;
-          console.log(this.isLoading)
-        }
-      },
-    });
   }
 
   public submitForm(): void {
     this.weatherService.setCity(this.city);
+    this.weatherService.setIsLoading(true);
   }
 
   public getDayOfTheYear(): string {

@@ -13,8 +13,8 @@ export class WeatherBehaviorService {
     this.isLoading$.next(isLoading);
   }
 
-  public getIsLoading(): Observable<boolean> {
-    return this.isLoading$.asObservable();
+  public getIsLoading(): boolean {
+    return this.isLoading$.value;
   }
 
   public setCity(city: string): void {

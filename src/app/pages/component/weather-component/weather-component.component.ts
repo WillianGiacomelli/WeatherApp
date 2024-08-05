@@ -42,6 +42,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   public getWeather(): void {
+    this.weatherBehaviorService.setIsLoading(true);
+
     this.weatherService.getWeather(this.city)
     .pipe(
       takeUntil(this.unsubscribe$),
@@ -52,7 +54,6 @@ export class WeatherComponent implements OnInit, OnDestroy {
         if(response){
           this.weatherBehaviorService.setCityInfo(response);
           this.weatherBehaviorService.setIsLoading(false);
-          console.log("request completed");
         }
       },
       complete: () => {

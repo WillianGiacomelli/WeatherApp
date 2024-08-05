@@ -1,7 +1,7 @@
 import { Subject, takeUntil } from 'rxjs';
 import { WeatherData } from '../../../core/models/weatherData';
 import { WeatherBehaviorService } from './../../component/services/weatherBehavior.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-informations',
@@ -14,6 +14,7 @@ export class InformationsComponent implements OnInit, OnDestroy {
 
   constructor(protected weatherBehaviorService: WeatherBehaviorService) { }
 
+
   ngOnDestroy(): void {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete()
@@ -24,7 +25,7 @@ export class InformationsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe({
       next: (cityInfo: WeatherData) =>{
-        if(cityInfo){
+        if(!!cityInfo){
           this.cityWeatherInfo = cityInfo;
         }
       }

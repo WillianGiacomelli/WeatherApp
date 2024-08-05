@@ -1,25 +1,48 @@
 <h1 class="text-dark">Previsão para hoje</h1>
-@if(cityWeatherInfo){
+@if(!!cityWeatherInfo){
+    <div class="row mt-5">
+      <div class="col-md-4 col-xs-12">
+        <app-weather-card [titleDescription]="'Vento'" [value]="cityWeatherInfo.wind.speed" weight="km/h"></app-weather-card>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <app-weather-card [titleDescription]="'Umidade'" [value]="cityWeatherInfo.main?.humidity" weight="%"></app-weather-card>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <app-weather-card [titleDescription]="'Sensação'" [value]="cityWeatherInfo!.main?.feels_like" weight="°C"></app-weather-card>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-4 col-xs-12">
+        <app-weather-card [titleDescription]="'Pressão'" [value]="cityWeatherInfo!.main?.pressure" weight="mmHg"></app-weather-card>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <app-weather-card [titleDescription]="'Nascer do Sol'" [value]="getSunrise(cityWeatherInfo!.sys.sunrise)" weight="h"></app-weather-card>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <app-weather-card [titleDescription]="'Por do sol'" [value]="getSunrise(cityWeatherInfo!.sys.sunset)" weight="h"></app-weather-card>
+      </div>
+    </div>
+}@else {
   <div class="row mt-5">
     <div class="col-md-4 col-xs-12">
-      <app-weather-card [titleDescription]="'Vento'" [value]="cityWeatherInfo.wind.speed" weight="km/h"></app-weather-card>
+      <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>
     </div>
     <div class="col-md-4 col-xs-12">
-      <app-weather-card [titleDescription]="'Umidade'" [value]="cityWeatherInfo.main.humidity" weight="%"></app-weather-card>
+      <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>
     </div>
     <div class="col-md-4 col-xs-12">
-      <app-weather-card [titleDescription]="'Sensação'" [value]="cityWeatherInfo.main.feels_like" weight="°C"></app-weather-card>
+      <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-md-4 col-xs-12">
-      <app-weather-card [titleDescription]="'Pressão'" [value]="cityWeatherInfo.main.pressure" weight="mmHg"></app-weather-card>
+      <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>
     </div>
     <div class="col-md-4 col-xs-12">
-      <app-weather-card [titleDescription]="'Nascer do Sol'" [value]="getSunrise(cityWeatherInfo.sys.sunrise)" weight="h"></app-weather-card>
+      <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>
     </div>
     <div class="col-md-4 col-xs-12">
-      <app-weather-card [titleDescription]="'Por do sol'" [value]="getSunrise(cityWeatherInfo.sys.sunset)" weight="h"></app-weather-card>
+      <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>
     </div>
   </div>
 }
