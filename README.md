@@ -28,6 +28,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - **[RxJS](https://rxjs.dev/)**
 - **[API OpewWeatherMap](https://openweathermap.org/)**
 - **[Ngx Skeleton Loader](https://www.npmjs.com/package/ngx-skeleton-loader)**
+- **[Bootstrap 5](https://getbootstrap.com/)**
 
 
 ## Como Instalar e Executar
