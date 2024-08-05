@@ -1,5 +1,6 @@
 <h1 class="text-dark">Previsão para hoje</h1>
-@if(!!cityWeatherInfo){
+@if(!weatherBehaviorService.getIsLoading()){
+  @if(!!cityWeatherInfo){
     <div class="row mt-5">
       <div class="col-md-4 col-xs-12">
         <app-weather-card [titleDescription]="'Vento'" [value]="cityWeatherInfo.wind.speed" weight="km/h"></app-weather-card>
@@ -22,7 +23,9 @@
         <app-weather-card [titleDescription]="'Por do sol'" [value]="getSunrise(cityWeatherInfo!.sys.sunset)" weight="h"></app-weather-card>
       </div>
     </div>
-}@else {
+  }
+}
+@else {
   <div class="row mt-5">
     <div class="col-md-4 col-xs-12">
       <ngx-skeleton-loader [theme]="{background: '#AAAAAA', width:'100%', height:'160px', borderRadius:'20px'}"></ngx-skeleton-loader>

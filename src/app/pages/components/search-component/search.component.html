@@ -12,7 +12,11 @@
             <div class="d-flex justify-content-center mt-5">
               @switch (cityWeatherInfo.weather[0].id) {
                 @case (800){
-                  <img src="../../../../assets/weather/sun.svg" alt="sun" class="w-25">
+                  @if(hour >= 6 && hour <= 18){
+                    <img src="../../../../assets/weather/sun.svg" alt="sun" class="w-25">
+                  }@else{
+                    <img src="../../../../assets/weather/night.svg" alt="moon" class="w-25">
+                  }
                 }
                 @case(800 || 801 || 802 || 803 || 804){
                   <img src="../../../../assets/weather/clouds.svg" alt="cloudy" class="w-25">

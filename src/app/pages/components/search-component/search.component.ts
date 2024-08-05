@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public city: string = "";
   public day: Date = new Date();
   public error: string = "";
+  public hour: number = 0;
 
   constructor(protected weatherService: WeatherBehaviorService) { }
 
@@ -40,10 +41,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public submitForm(): void {
+
     if(this.city == ""){
       this.error = "Cidade obrigatória";
       return;
     }
+    this.error = "";
+
     this.weatherService.setCity(this.city);
     this.weatherService.setIsLoading(true);
   }
@@ -64,6 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     const minutes = String(this.day.getMinutes()).padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
 
+    this.hour = +hours;
     // Retorna a data e hora formatadas
     return `${dayOfWeek}, ${formattedTime}`;
   }
