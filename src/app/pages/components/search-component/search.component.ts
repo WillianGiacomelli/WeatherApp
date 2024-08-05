@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public cityWeatherInfo: WeatherData | undefined;
   public city: string = "";
   public day: Date = new Date();
+  public error: string = "";
 
   constructor(protected weatherService: WeatherBehaviorService) { }
 
@@ -39,6 +40,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public submitForm(): void {
+    if(this.city == ""){
+      this.error = "Cidade obrigatória";
+      return;
+    }
     this.weatherService.setCity(this.city);
     this.weatherService.setIsLoading(true);
   }

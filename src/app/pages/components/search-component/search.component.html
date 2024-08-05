@@ -1,8 +1,11 @@
 @if(!weatherService.getIsLoading()){
   <form #form="ngForm" (submit)="submitForm()">
     <div class="form-group d-relative">
-      <input type="text" class="form-control justify-self-center d-relative rounded-5" id="city" [(ngModel)]="city" name="city" placeholder="Enter city">
+      <input type="text" class="form-control justify-self-center d-relative rounded-5" id="city" [(ngModel)]="city" name="city" placeholder="Digite uma cidade">
       <i class="bi bi-search d-absolute" (click)="submitForm()"></i>
+      @if(error !== ''){
+        <span class="text-danger">{{error}}</span>
+      }
       @if(cityWeatherInfo){
         <div>
           <div>

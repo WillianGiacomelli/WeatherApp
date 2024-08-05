@@ -42,6 +42,9 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   public getWeather(): void {
+    if(this.city == ""){
+      return;
+    }
     this.weatherBehaviorService.setIsLoading(true);
 
     this.weatherService.getWeather(this.city)
